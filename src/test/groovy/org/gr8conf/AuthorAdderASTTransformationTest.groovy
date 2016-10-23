@@ -1,7 +1,11 @@
 package org.gr8conf
 
 class AuthorAdderASTTransformationTest extends GroovyTestCase {
-    void testThatAuthorExists() {
-        assert author == 'Cédric Champeau'
+    void testGlobalAstTransformation() {
+        assertScript """
+            class Foo {}
+
+            assert Foo.author == "Me"
+        """
     }
 }
