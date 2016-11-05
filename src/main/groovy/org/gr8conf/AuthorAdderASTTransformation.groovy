@@ -13,31 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.gr8conf;
+package org.gr8conf
 
+import groovy.transform.CompileStatic;
 import org.codehaus.groovy.ast.ASTNode;
 import org.codehaus.groovy.ast.ClassHelper;
-import org.codehaus.groovy.ast.ClassNode;
 import org.codehaus.groovy.ast.expr.ConstantExpression;
 import org.codehaus.groovy.control.CompilePhase;
 import org.codehaus.groovy.control.SourceUnit;
 import org.codehaus.groovy.transform.AbstractASTTransformation;
 import org.codehaus.groovy.transform.GroovyASTTransformation;
 
-import java.util.List;
-
+@CompileStatic
 @GroovyASTTransformation(phase= CompilePhase.CONVERSION)
-public class AuthorAdderASTTransformation extends AbstractASTTransformation {
+class AuthorAdderASTTransformation extends AbstractASTTransformation {
     @Override
-    public void visit(final ASTNode[] nodes, final SourceUnit source) {
-        List<ClassNode> classes = source.getAST().getClasses();
-        for (ClassNode node: classes) {
+    void visit(final ASTNode[] nodes, final SourceUnit source) {
+        source.getAST().classes.each { node ->
             node.addField(
-                    "$AUTHOR",
-                    ACC_PUBLIC | ACC_STATIC | ACC_FINAL,
-                    ClassHelper.STRING_TYPE,
-                    new ConstantExpression("Cédric Champeau")
-            );
+                '$AUTHOR',
+                ACC_PUBLIC | ACC_STATIC | ACC_FINAL,
+                ClassHelper.STRING_TYPE,
+                new ConstantExpression("Me")
+            )
         }
     }
 }

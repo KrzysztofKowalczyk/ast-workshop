@@ -2,14 +2,14 @@ package org.gr8conf
 
 class AuthorAdderASTTransformationTest extends GroovyTestCase {
     void testThatAuthorExists() {
-        assert $AUTHOR == 'Cédric Champeau'
+        assert $AUTHOR == 'Me'
     }
 
     void testASTTransformationShouldBeDebuggableFromIDE() {
         assertScript '''
             class Foo {
             }
-            assert Foo.$AUTHOR == 'Cédric Champeau'
+            assert Foo.$AUTHOR == 'Me'
         '''
     }
 }
